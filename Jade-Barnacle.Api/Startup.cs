@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Jade.Barnacle.Data;
+using Microsoft.EntityFrameworkCore;
 namespace jade.barnacle.Api
 {
 public class Startup
@@ -17,6 +19,9 @@ public void ConfigureServices(IServiceCollection services)
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+services.AddDbContext<StoreContext>(options =>
+    options.UseSqlite("Data Source =../Registrar.sqlite",
+        b => b.MigrationsAssembly("Jade-Barnacle.Api")));
 }
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 {
