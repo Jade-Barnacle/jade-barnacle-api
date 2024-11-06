@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Jade-Barnacle.Domain\Jade-Barnacle.Domain.csproj" />
+    <ProjectReference Include="..\Jade-Barnacle.Data\Jade-Barnacle.Data.csproj" />
   </ItemGroup>
 
 </Project>
