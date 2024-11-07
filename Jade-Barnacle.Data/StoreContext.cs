@@ -1,4 +1,5 @@
 ﻿using Jade.Barnacle.Domain.Catalog;
+using Jade.Barnacle.Domain.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Jade.Barnacle.Data
@@ -8,7 +9,9 @@ namespace Jade.Barnacle.Data
         public StoreContext(DbContextOptions<StoreContext> options)
         :base(options)
     { }
-    public DbSet<Item> Items {get; set; }
+    public DbSet<Item> Items { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<Rating> Ratings { get; set; }
 }
 
 }
