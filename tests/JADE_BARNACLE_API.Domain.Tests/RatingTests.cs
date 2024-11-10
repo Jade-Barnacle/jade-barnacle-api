@@ -1,26 +1,30 @@
-namespace JADE_BARNACLE_API.Domain.Tests;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Jade.Barnacle.Domain.Catalog;
 using JADE_BARNACLE_API;
 
-[TestClass]
-public class RatingTests
+namespace JADE_BARNACLE_API.Domain.Tests
 {
-    [TestMethod]
-    public void Can_Create_New_Rating()
+    [TestClass]
+    public class RatingTests
     {
-        //Arrange
-        var rating = new Rating(1, "Mike", "Great fit!");
-        //Act (empty)
+        [TestMethod]
+        public void Can_Create_New_Rating()
+        {
+            // Arrange
+            var rating = new Rating(1, "Mike", "Great fit!");
 
-        //Assert
-        Assert.AreEqual(1, rating.Stars);
-        Assert.AreEqual("Mike", rating.UserName);
-        Assert.AreEqual("Great fit!", rating.Review);
+            // Act (no actions needed for this test)
+
+            // Assert
+            Assert.AreEqual(1, rating.Stars);
+            Assert.AreEqual("Mike", rating.UserName);
+            Assert.AreEqual("Great fit!", rating.Review);
+        }
     }
 }
 
-[TestClass]
+
+    [TestClass]
     public class ItemTests
     {
         [TestMethod]
@@ -37,22 +41,19 @@ public class RatingTests
             Assert.AreEqual("Brand", item.Brand);
             Assert.AreEqual(10.00m, item.Price);
         }
+
+        [TestMethod]
+        public void Can_Create_Add_Rating()
+        {
+            // Arrange
+            var item = new Item("Name", "Description", "Brand", 10.00m);
+            var rating = new Rating(5, "Name", "Review");
+
+            // Act
+            item.AddRating(rating);
+
+            // Assert
+            Assert.AreEqual(rating, item.Ratings[0]);
+        }
     }
 
-[TestClass]
-public class ItemTests
-{
-    [TestMethod]
-    public void Can_Create_Add_Rating()
-    {
-        // Arrange
-        var item = new Item("Name", "Description", "Brand", 10.00m);
-        var rating = new Rating(5, "Name", "Review");
-
-        // Act
-        item.AddRating(rating);
-
-        // Assert
-        Assert.AreEqual(rating, item.Ratings[0]);
-    }
-}
