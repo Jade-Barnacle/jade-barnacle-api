@@ -3,6 +3,7 @@ using Jade.Barnacle.Domain.Catalog;
 using Jade.Barnacle.Data;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Jade.Barnacle.Api.Controllers
 {
@@ -71,6 +72,7 @@ namespace Jade.Barnacle.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize("delete:catalog")]
         public IActionResult DeleteItem(int id)
         {
             var item = _db.Items.Find(id);

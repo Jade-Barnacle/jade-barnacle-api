@@ -7,6 +7,8 @@ using Jade.Barnacle.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Build.Framework;
 using Microsoft.Extensions.Options;
+using Jade.Barnacle.Api.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 
 namespace jade.barnacle.Api
@@ -21,9 +23,33 @@ namespace jade.barnacle.Api
         
         public void ConfigureServices(IServiceCollection services)
         {
+            string authority = Configuration["Auth0:Authority"]??
+            throw new ArgumentNullException("Auth0:Authority");
+
+            string audience = Configuration["Autho0:Audience"] ??
+            throw new ArgumentNullException("Auth0:Audience");
 
 
             services.AddControllers();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("delete:catalog", PolicyServiceCollectionExtensions =>
+                policy.RequireAuthenticatedUser().RequireClaim("scope", "delete: catalog"));
+        });
+            
+            .AddJwtBearer(options =>
+            {
+                options.Authority = authority;
+                options.Audience = audience;
+            });
+
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddDbContext<StoreContext>(options =>
@@ -52,6 +78,7 @@ namespace jade.barnacle.Api
             app.UseHttpsRedirection();
             app.UseCors();
             app.UseRouting();
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

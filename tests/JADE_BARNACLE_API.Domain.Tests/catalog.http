@@ -1,0 +1,5 @@
+###
+curl --request POST \
+  --url https://dev-ac4u7j07swpliyvc.us.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"E4BdMZCYJruyElEllm2CIRDXAgrwDVTA","client_secret":"d02Wm9b6xeGZYVipywsxEaPbcu9NtR9ksZVN6XkTRdN-IIdeD_5MX6XacjMQRDmy","audience":"https://jade-barnacle","grant_type":"client_credentials"}'
